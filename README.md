@@ -1,4 +1,4 @@
-This is a Podcasts App
+This is a PodcastsHomeList App
 
 ## Getting Started
 
