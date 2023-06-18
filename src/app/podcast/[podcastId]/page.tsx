@@ -1,45 +1,43 @@
 import Link from 'next/link';
 import PodcastInfo from '@/components/PodcastInfo';
 import EpisodeCardItem from '@/components/EpisodeCardItem';
+import { PodcastListResponse } from '@/models/podcasts.models';
+import { EpisodesListResponse } from '@/models/episodes.models';
+import { utils } from '@/lib/utils';
 
-export const delay = time =>
-  new Promise(resolve => {
-    setTimeout(() => resolve(1), time);
-  });
-
-const getPodcastList = async () => {
+const getPodcastList = async (): Promise<PodcastListResponse> => {
   const data = await fetch(
     'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json',
   );
-  await delay(2000);
-  return data.json();
+  await utils(1000);
+  return data.json<PodcastListResponse>();
 };
 
-const getEpisodes = async (id: string) => {
+const getEpisodes = async (id: string): Promise<EpisodesListResponse> => {
   const data = await fetch(
     `https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20`,
-    { next: { revalidate: 10 } },
+    { next: { revalidate: 86400 } },
   );
-  await delay(1000);
-  return data.json();
+  await utils(1000);
+  return data.json<EpisodesListResponse>();
 };
 
 export default async function PodcastPage({ params }) {
   const { podcastId } = params;
   const podcastsList = await getPodcastList();
   const episodesResult = await getEpisodes(podcastId);
-  const podcastDetails = podcastsList.feed.entry.find(
-    podcast => podcast.id.attributes['im:id'],
+  const podcastDetails = podcastsList?.feed?.entry?.find(
+    podcast => podcast?.id?.attributes['im:id'],
   );
 
   return (
     <div>
       <div className="grid grid-cols-4 content-center justify-center gap-2 p-5">
         <PodcastInfo
-          image={episodesResult.results[1].artworkUrl600}
-          name={podcastDetails['im:name'].label}
-          author={podcastDetails['im:artist'].label}
-          description={podcastDetails.summary.label}
+          image={episodesResult?.results[1]?.artworkUrl600}
+          name={podcastDetails['im:name']?.label}
+          author={podcastDetails['im:artist']?.label}
+          description={podcastDetails?.summary?.label}
         />
 
         <div className="col-start-3 col-end-5">
@@ -67,19 +65,22 @@ export default async function PodcastPage({ params }) {
               <div className="flex flex-none items-center text-white"></div>
             </div>
           </div>
-          {episodesResult.results.map((episode, index) => {
+          {episodesResult?.results?.map((episode, index) => {
             if (index === 0) {
               return;
             }
             return (
-              <div key={episode.trackId}>
+              <Link
+                key={episode?.trackId}
+                href={`/podcast/${podcastId}/episode/${episode?.episodeGuid}`}
+              >
                 <EpisodeCardItem
-                  image={episodesResult.results[1].artworkUrl600}
+                  image={episodesResult?.results[1]?.artworkUrl600}
                   trackName={episode?.trackName}
                   trackTime={episode?.trackTimeMillis}
                   trackReleaseDate={episode?.releaseDate}
                 />
-              </div>
+              </Link>
             );
           })}
         </div>

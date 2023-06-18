@@ -16,7 +16,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### Make build
 
-Run build:
+Make build:
 
 ```bash
 npm run build
@@ -24,4 +24,14 @@ npm run build
 yarn build
 # or
 pnpm build
+```
+
+Run build locally:
+
+```bash
+npm run start
+# or
+yarn start
+# or
+pnpm start
 ```
