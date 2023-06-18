@@ -25,7 +25,6 @@ const PodcastsHomeList = ({ podcasts = [] }) => {
       );
 
   const handleClickPodcast = (podcastId: string = '') => {
-    return;
     if (podcastId !== '') {
       router.push(`/podcast/${podcastId}`);
     }
