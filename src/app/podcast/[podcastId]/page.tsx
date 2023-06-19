@@ -1,31 +1,17 @@
 import Link from 'next/link';
 import PodcastInfo from '@/components/PodcastInfo';
 import EpisodeCardItem from '@/components/EpisodeCardItem';
-import { PodcastListResponse } from '@/models/podcasts.models';
-import { EpisodesListResponse } from '@/models/episodes.models';
-import { utils } from '@/lib/utils';
-
-const getPodcastList = async (): Promise<PodcastListResponse> => {
-  const data = await fetch(
-    'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json',
-  );
-  await utils(1000);
-  return data.json<PodcastListResponse>();
-};
-
-const getEpisodes = async (id: string): Promise<EpisodesListResponse> => {
-  const data = await fetch(
-    `https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20`,
-    { next: { revalidate: 86400 } },
-  );
-  await utils(1000);
-  return data.json<EpisodesListResponse>();
-};
+import { getEpisodes, getPodcastList } from '@/services/podcasts';
 
 export default async function PodcastPage({ params }) {
   const { podcastId } = params;
   const podcastsList = await getPodcastList();
   const episodesResult = await getEpisodes(podcastId);
+
+  if (podcastsList === undefined || episodesResult === undefined) {
+    return <div>Ooops! We have connection problems</div>;
+  }
+
   const podcastDetails = podcastsList?.feed?.entry?.find(
     podcast => podcast?.id?.attributes['im:id'],
   );

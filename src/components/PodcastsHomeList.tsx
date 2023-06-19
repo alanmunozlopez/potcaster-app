@@ -1,7 +1,6 @@
 'use client';
 import styles from '@/styles/podcast-card.module.css';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import PodcastHomeCard from '@/components/PodcastHomeCard';
 import Link from 'next/link';
 

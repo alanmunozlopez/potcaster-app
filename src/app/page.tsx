@@ -1,17 +1,11 @@
 import PodcastsHomeList from '@/components/PodcastsHomeList';
-import { PodcastListResponse } from '@/models/podcasts.models';
-import { utils } from '@/lib/utils';
-
-const getPodcastList = async (): Promise<PodcastListResponse> => {
-  const data = await fetch(
-    'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json',
-  );
-  await utils(1000);
-  return data.json<PodcastListResponse>();
-};
+import { getPodcastList } from '@/services/podcasts';
 
 export default async function Home() {
   const data = await getPodcastList();
+  if (data === undefined) {
+    return <div>Ooops! We have connection problems</div>;
+  }
   const podcastList = data?.feed?.entry ?? [];
 
   return (
