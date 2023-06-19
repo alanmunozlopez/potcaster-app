@@ -3,7 +3,13 @@ import PodcastInfo from '@/components/PodcastInfo';
 import EpisodeCardItem from '@/components/EpisodeCardItem';
 import { getEpisodes, getPodcastList } from '@/services/podcasts';
 
-export default async function PodcastPage({ params }) {
+type Params = {
+  params: {
+    podcastId: string;
+  };
+};
+
+export default async function PodcastPage({ params }: Params) {
   const { podcastId } = params;
   const podcastsList = await getPodcastList();
   const episodesResult = await getEpisodes(podcastId);
@@ -15,6 +21,10 @@ export default async function PodcastPage({ params }) {
   const podcastDetails = podcastsList?.feed?.entry?.find(
     podcast => podcast?.id?.attributes['im:id'],
   );
+
+  if (podcastDetails === undefined) {
+    return <div></div>;
+  }
 
   return (
     <div>

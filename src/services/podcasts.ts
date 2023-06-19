@@ -8,7 +8,7 @@ export const getPodcastList = async (): Promise<
     const data = await fetch(
       'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json',
     );
-    return data.json<PodcastListResponse>();
+    return data.json();
   } catch (e) {
     console.log(e);
     return undefined;
@@ -23,7 +23,7 @@ export const getEpisodes = async (
       `https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20`,
       { next: { revalidate: 86400 } },
     );
-    return data.json<EpisodesListResponse>();
+    return data.json();
   } catch (e) {
     console.log(e);
     return undefined;

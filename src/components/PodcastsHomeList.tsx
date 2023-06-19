@@ -1,14 +1,15 @@
 'use client';
 import styles from '@/styles/podcast-card.module.css';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import PodcastHomeCard from '@/components/PodcastHomeCard';
 import Link from 'next/link';
+import { Entry } from '@/models/podcasts.models';
 
-const PodcastsHomeList = ({ podcasts = [] }) => {
+const PodcastsHomeList = ({ podcasts = [] as Entry[] }) => {
   const [query, setQuery] = useState('');
 
-  const handleSearchChange = e => {
-    setQuery(e.target.value);
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e?.target?.value);
   };
 
   const filteredList = !query
