@@ -1,3 +1,4 @@
+// TODO: this fn is only to test the loading pages, remove after
 export const utils = time =>
   new Promise(resolve => {
     setTimeout(() => resolve(1), time);

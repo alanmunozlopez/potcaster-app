@@ -5,7 +5,7 @@ const PodcastInfo = ({
   description = '',
 }) => {
   return (
-    <div className="p-2">
+    <div role="podcast-info" className="p-2">
       <img className="rounded-2xl shadow shadow-amber-200" src={image} />
       <div className="mt-5">
         <p className="font-bold"> {name}</p>

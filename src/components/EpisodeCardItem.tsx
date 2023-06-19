@@ -7,7 +7,10 @@ const EpisodeCardItem = ({
   trackReleaseDate = '',
 }) => {
   return (
-    <div className="mx-2 my-4 w-full min-w-full lg:w-1/3">
+    <div
+      role="episode-card-item"
+      className="mx-2 my-4 w-full min-w-full lg:w-1/3"
+    >
       <div className="flex w-full flex-row items-center rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-3 dark:from-cyan-500 dark:to-blue-500">
         <div className="flex h-8 w-8 flex-none items-center rounded-md bg-white p-1 text-indigo-500 dark:bg-[#0F172A] dark:text-white md:h-12 md:w-12 ">
           <img className="rounded-md" src={image} />

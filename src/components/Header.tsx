@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header>
+    <header role="header">
       <nav className="border-gray-200 bg-white px-4 py-2.5 dark:bg-gray-800 lg:px-6">
         <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between">
           <a href="/" className="flex items-center">

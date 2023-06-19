@@ -3,9 +3,9 @@ import styles from '@/styles/podcast-card.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PodcastHomeCard from '@/components/PodcastHomeCard';
+import Link from 'next/link';
 
 const PodcastsHomeList = ({ podcasts = [] }) => {
-  const router = useRouter();
   const [query, setQuery] = useState('');
 
   const handleSearchChange = e => {
@@ -24,14 +24,8 @@ const PodcastsHomeList = ({ podcasts = [] }) => {
             .includes(query.toLowerCase()),
       );
 
-  const handleClickPodcast = (podcastId: string = '') => {
-    if (podcastId !== '') {
-      router.push(`/podcast/${podcastId}`);
-    }
-  };
-
   return (
-    <div className="grid gap-6 pb-3 ">
+    <div role="podcast-home-list" className="grid gap-6 pb-3 ">
       <div className="mt-8 w-80 justify-self-center">
         <label
           htmlFor="first_name"
@@ -51,14 +45,17 @@ const PodcastsHomeList = ({ podcasts = [] }) => {
 
       <div className={styles.container}>
         {filteredList?.map(podcast => (
-          <PodcastHomeCard
+          <Link
             key={podcast.id.attributes['im:id']}
-            id={podcast.id.attributes['im:id']}
-            image={podcast['im:image'][2].label}
-            name={podcast['im:name'].label}
-            author={podcast['im:artist'].label}
-            handleClickPodcast={handleClickPodcast}
-          />
+            href={`/podcast/${podcast.id.attributes['im:id']}`}
+          >
+            <PodcastHomeCard
+              id={podcast.id.attributes['im:id']}
+              image={podcast['im:image'][2].label}
+              name={podcast['im:name'].label}
+              author={podcast['im:artist'].label}
+            />
+          </Link>
         ))}
       </div>
     </div>

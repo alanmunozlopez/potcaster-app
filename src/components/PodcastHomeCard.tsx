@@ -1,15 +1,9 @@
 import styles from '@/styles/podcast-card.module.css';
 
-const PodcastHomeCard = ({
-  id = '',
-  image = '',
-  name = '',
-  author = '',
-  handleClickPodcast = (id: string) => {},
-}) => {
+const PodcastHomeCard = ({ id = '', image = '', name = '', author = '' }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.card} onClick={() => handleClickPodcast(id)}>
+      <div role="podcast-home-card" className={styles.card}>
         <div>
           <figure>
             <img className={styles.img} src={image} />
