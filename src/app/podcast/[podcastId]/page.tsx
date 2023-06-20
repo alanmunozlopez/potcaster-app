@@ -68,7 +68,7 @@ export default async function PodcastPage({ params }: Params) {
             return (
               <Link
                 key={episode?.trackId}
-                href={`/podcast/${podcastId}/episode/${episode?.episodeGuid}`}
+                href={`/podcast/${podcastId}/episode/${episode?.trackId}`}
               >
                 <EpisodeCardItem
                   image={episodesResult?.results[1]?.artworkUrl600}

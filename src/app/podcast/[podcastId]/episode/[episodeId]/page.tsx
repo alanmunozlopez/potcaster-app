@@ -20,13 +20,13 @@ export default async function EpisodePage({ params }: Params) {
   }
 
   const episode = episodesResult?.results?.find(
-    ep => ep.episodeGuid === episodeId,
+    ep => ep.trackId.toString() === episodeId,
   );
   const podcastDetails = podcastsList?.feed?.entry?.find(
     podcast => podcast.id?.attributes['im:id'],
   );
 
-  if (episode === undefined || podcastDetails === undefined) {
+  if (!episode || !podcastDetails) {
     return <div></div>;
   }
 
