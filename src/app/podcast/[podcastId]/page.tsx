@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import PodcastInfo from '@/components/PodcastInfo';
 import EpisodeCardItem from '@/components/EpisodeCardItem';
@@ -15,7 +16,7 @@ export default async function PodcastPage({ params }: Params) {
   const episodesResult = await getEpisodes(podcastId);
 
   if (podcastsList === undefined || episodesResult === undefined) {
-    return <div>Ooops! We have connection problems</div>;
+    return <div />;
   }
 
   const podcastDetails = podcastsList?.feed?.entry?.find(

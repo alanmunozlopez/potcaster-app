@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import PodcastInfo from '@/components/PodcastInfo';
 import { getEpisodes, getPodcastList } from '@/services/podcasts';
@@ -16,7 +17,7 @@ export default async function EpisodePage({ params }: Params) {
   const episodesResult = await getEpisodes(podcastId);
 
   if (podcastsList === undefined || episodesResult === undefined) {
-    return <div>Ooops! We have connection problems</div>;
+    return <div />;
   }
 
   const episode = episodesResult?.results?.find(

@@ -1,10 +1,11 @@
+'use client';
 import PodcastsHomeList from '@/components/PodcastsHomeList';
 import { getPodcastList } from '@/services/podcasts';
 
 export default async function Home() {
   const data = await getPodcastList();
   if (data === undefined) {
-    return <div>Ooops! We have connection problems</div>;
+    return <div />;
   }
   const podcastList = data?.feed?.entry ?? [];
 
